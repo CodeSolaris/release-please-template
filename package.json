@@ -1,0 +1,12 @@
+{
+  "name": "release-please-template",
+  "version": "1.0.0",
+  "description": "Step-by-step release-please template configuration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
