@@ -2,13 +2,14 @@
   "name": "release-please-template",
   "version": "0.0.0",
   "type": "module",
-  "packageManager": "pnpm@11.9.0",
   "engines": {
     "node": ">=24 <25"
   },
+  "packageManager": "pnpm@11.12.0",
   "description": "GitHub repository governance, CI, release, and coding-agent template.",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "preinstall": "npx only-allow pnpm"
   },
   "license": "ISC",
   "devDependencies": {
