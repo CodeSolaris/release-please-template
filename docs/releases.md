@@ -6,6 +6,8 @@ The repository uses `release-please` as its only release mechanism.
 
 After every push to `main`, `.github/workflows/release-please.yml` analyzes
 Conventional Commits and creates or updates a release pull request.
+The workflow can also be started manually from the Actions tab when a run must
+be recovered or verified.
 
 After that pull request is merged, the next workflow run creates a Git tag and
 GitHub Release. `feat` increments the minor version, `fix` increments the patch
