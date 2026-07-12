@@ -25,7 +25,7 @@ jobs:
 
       - name: Checkout
         if: steps.release.outputs.prs_created == 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
         if: steps.release.outputs.prs_created == 'true'
