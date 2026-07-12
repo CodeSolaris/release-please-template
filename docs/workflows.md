@@ -6,6 +6,9 @@ The repository contains three independent workflows:
 - `pr-title.yml` validates pull request titles with commitlint.
 - `release-please.yml` creates release pull requests and GitHub Releases from changes on `main`.
 
+The release workflow normally runs after a push to `main`. It also supports a
+manual run from the Actions tab for recovery and verification.
+
 The shared Node.js, pnpm, and dependency setup steps live in
 `.github/actions/setup-project/action.yml`.
 
