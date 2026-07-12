@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   buildPullRequestBody,
   parseReleasePullRequest,
+  serializePromptInput,
   stripGeneratedSummary,
   validateSummary,
 } from './release-summary.js';
@@ -27,6 +28,14 @@ test('stripGeneratedSummary makes updates idempotent', () => {
   const body = buildPullRequestBody(summary, technicalNotes);
 
   assert.equal(stripGeneratedSummary(body), technicalNotes);
+});
+
+test('serializePromptInput keeps multiline Markdown on one YAML-safe line', () => {
+  const value = '### Features\n\n* Add retries.\n* Handle: failures.';
+  const serialized = serializePromptInput(value);
+
+  assert.equal(serialized.split('\n').length, 1);
+  assert.equal(JSON.parse(serialized), value);
 });
 
 test('validateSummary normalizes valid structured output', () => {
