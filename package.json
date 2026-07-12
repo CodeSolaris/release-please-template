@@ -1,12 +1,19 @@
 {
   "name": "release-please-template",
-  "version": "1.0.0",
-  "description": "Step-by-step release-please template configuration",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+  "version": "0.0.0",
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=24 <25"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "description": "GitHub repository governance, CI, release, and coding-agent template.",
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "lefthook": "^2.1.10"
+  }
 }

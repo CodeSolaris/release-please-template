@@ -1,0 +1,58 @@
+name: release-please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  models: read
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Release Please
+        uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+      - name: Checkout
+        if: steps.release.outputs.prs_created == 'true'
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        if: steps.release.outputs.prs_created == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      - name: Prepare release summary input
+        if: steps.release.outputs.prs_created == 'true'
+        env:
+          RELEASE_PR_JSON: ${{ steps.release.outputs.pr }}
+        run: node scripts/release-summary.js prepare
+
+      - name: Generate release summary
+        if: steps.release.outputs.prs_created == 'true'
+        id: ai-summary
+        uses: actions/ai-inference@v1
+        with:
+          prompt-file: .github/prompts/release-summary.prompt.yml
+          file_input: |
+            title: ${{ runner.temp }}/release-title.txt
+            technicalNotes: ${{ runner.temp }}/release-notes.md
+
+      - name: Update release pull request summary
+        if: steps.release.outputs.prs_created == 'true'
+        env:
+          AI_RESPONSE_FILE: ${{ steps.ai-summary.outputs.response-file }}
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_PR_JSON: ${{ steps.release.outputs.pr }}
+        run: node scripts/release-summary.js apply
