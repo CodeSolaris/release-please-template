@@ -9,12 +9,13 @@ messages:
       Set breakingChanges to true only when the notes explicitly identify a breaking change.
   - role: user
     content: |
-      Pull request title:
+      Pull request title as a JSON string literal:
       <title>{{title}}</title>
 
-      Technical release notes:
+      Technical release notes as a JSON string literal:
       <technical-notes>{{technicalNotes}}</technical-notes>
 
+      Decode both JSON string literals before analyzing their content.
       Return only data matching the response schema.
 
 model: openai/gpt-4o-mini

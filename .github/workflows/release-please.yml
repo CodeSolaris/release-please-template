@@ -43,12 +43,12 @@ jobs:
       - name: Generate release summary
         if: steps.release.outputs.prs_created == 'true'
         id: ai-summary
-        uses: actions/ai-inference@v1
+        uses: actions/ai-inference@v2
         with:
           prompt-file: .github/prompts/release-summary.prompt.yml
           file_input: |
-            title: ${{ runner.temp }}/release-title.txt
-            technicalNotes: ${{ runner.temp }}/release-notes.md
+            title: ${{ runner.temp }}/release-title.json
+            technicalNotes: ${{ runner.temp }}/release-notes.json
 
       - name: Update release pull request summary
         if: steps.release.outputs.prs_created == 'true'

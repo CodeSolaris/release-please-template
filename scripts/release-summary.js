@@ -18,6 +18,10 @@ export function stripGeneratedSummary(body) {
   return remainingBody.replace(/^## Technical release notes\s+/i, '').trim();
 }
 
+export function serializePromptInput(value) {
+  return JSON.stringify(value);
+}
+
 function normalizeText(value, field, maxLength) {
   if (typeof value !== 'string') {
     throw new TypeError(`${field} must be a string.`);
@@ -133,10 +137,14 @@ async function prepare() {
   }
 
   await Promise.all([
-    writeFile(path.join(outputDirectory, 'release-title.txt'), pullRequest.title, 'utf8'),
     writeFile(
-      path.join(outputDirectory, 'release-notes.md'),
-      technicalNotes.slice(0, MAX_TECHNICAL_NOTES_LENGTH),
+      path.join(outputDirectory, 'release-title.json'),
+      serializePromptInput(pullRequest.title),
+      'utf8',
+    ),
+    writeFile(
+      path.join(outputDirectory, 'release-notes.json'),
+      serializePromptInput(technicalNotes.slice(0, MAX_TECHNICAL_NOTES_LENGTH)),
       'utf8',
     ),
   ]);
