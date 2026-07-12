@@ -42,7 +42,7 @@ jobs:
       - name: Generate release summary
         if: steps.release.outputs.prs_created == 'true'
         id: ai-summary
-        uses: actions/ai-inference@v1
+        uses: actions/ai-inference@v2
         with:
           prompt-file: .github/prompts/release-summary.prompt.yml
           file_input: |
