@@ -40,8 +40,8 @@ export function validateSummary(value) {
     throw new TypeError('AI response must be a JSON object.');
   }
 
-  if (!Array.isArray(value.customerImpact) || value.customerImpact.length > 5) {
-    throw new TypeError('customerImpact must be an array with at most five items.');
+  if (!Array.isArray(value.userImpact) || value.userImpact.length > 5) {
+    throw new TypeError('userImpact must be an array with at most five items.');
   }
 
   const risk = String(value.risk).toLowerCase();
@@ -55,8 +55,8 @@ export function validateSummary(value) {
 
   return {
     businessSummary: normalizeText(value.businessSummary, 'businessSummary', 1_000),
-    customerImpact: value.customerImpact.map((item, index) =>
-      normalizeText(item, `customerImpact[${index}]`, 300),
+    userImpact: value.userImpact.map((item, index) =>
+      normalizeText(item, `userImpact[${index}]`, 300),
     ),
     risk,
     breakingChanges: value.breakingChanges,
@@ -64,16 +64,16 @@ export function validateSummary(value) {
 }
 
 export function buildPullRequestBody(summary, technicalNotes) {
-  const impact = summary.customerImpact.length
-    ? summary.customerImpact.map((item) => `- ${item}`).join('\n')
-    : '- No direct customer impact was identified.';
+  const impact = summary.userImpact.length
+    ? summary.userImpact.map((item) => `- ${item}`).join('\n')
+    : '- No direct user impact was identified.';
 
   return `${SUMMARY_START}
 ## Business summary
 
 ${summary.businessSummary}
 
-## Customer impact
+## User impact
 
 ${impact}
 

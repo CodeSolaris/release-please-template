@@ -10,7 +10,7 @@ import {
 
 const summary = {
   businessSummary: 'Customers can complete payments more reliably.',
-  customerImpact: ['Failed payments can be retried without contacting support.'],
+  userImpact: ['Failed payments can be retried without contacting support.'],
   risk: 'low',
   breakingChanges: false,
 };
@@ -42,13 +42,13 @@ test('validateSummary normalizes valid structured output', () => {
   assert.deepEqual(
     validateSummary({
       businessSummary: '  A useful release.  ',
-      customerImpact: ['  Faster checkout.  '],
+      userImpact: ['  Faster checkout.  '],
       risk: 'LOW',
       breakingChanges: false,
     }),
     {
       businessSummary: 'A useful release.',
-      customerImpact: ['Faster checkout.'],
+      userImpact: ['Faster checkout.'],
       risk: 'low',
       breakingChanges: false,
     },
