@@ -5,6 +5,12 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # pnpm/action-setup v6 ignores the requested pnpm version:
+    # https://github.com/pnpm/action-setup/issues/225
+    # https://github.com/pnpm/action-setup/issues/227
+    ignore:
+      - dependency-name: pnpm/action-setup
+        versions: ["6.x"]
   - package-ecosystem: npm
     directory: /
     schedule:
